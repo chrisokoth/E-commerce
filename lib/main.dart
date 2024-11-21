@@ -1,10 +1,14 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
+
 import 'pages/intro_page.dart';
+import 'package:device_preview/device_preview.dart';
+
 
 void main() {
-  runApp(const MyApp());
+  runApp(DevicePreview(
+    enabled: true, // Set to `true` to enable Device Preview
+    builder: (context) =>  MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -13,7 +17,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
-      debugShowCheckedModeBanner: false,
+       debugShowCheckedModeBanner: false,
+      useInheritedMediaQuery: true, // This enables DevicePreview's media queries
+      locale: DevicePreview.locale(context), // Use the locale from DevicePreview
+      builder: DevicePreview.appBuilder, // Wrap with DevicePreview's builder
       home: IntroPage(),
     );
   }
